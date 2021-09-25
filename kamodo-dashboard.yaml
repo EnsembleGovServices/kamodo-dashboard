@@ -4,22 +4,26 @@ import:
   dbc: dash_bootstrap_components
 
 external_stylesheets:
-#  - https://codepen.io/chriddyp/pen/bWLwgP.css
+  #  - https://codepen.io/chriddyp/pen/bWLwgP.css
   - https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css
   - assets/css/dashboard.css
 
 external_scripts:
-  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML
-  - https://code.jquery.com/jquery-3.2.1.slim.min.js
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML
+#  - assets/js/MathJax.js
+  - assets/js/dashboard.js
+  - https://code.jquery.com/jquery-3.6.0.js
+  - https://code.jquery.com/ui/1.12.1/jquery-ui.js
   - https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js
   - https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js
+
 
 app:
   jupyter_dash.JupyterDash:
     external_stylesheets: ${external_stylesheets}
     external_scripts: ${external_scripts}
-    # suppress_callback_exceptions: True
     title: kamodo-dashboard
+    suppress_callback_exceptions: True
 
 
 header:
@@ -29,7 +33,8 @@ header:
           children:
             - dbc.Col:
                 width: 1
-                children: LOGO
+                children:
+                  - html.H3: LOGO
                 className: logo
             - dbc.Col:
                 width: 11
@@ -45,18 +50,18 @@ side-menubar:
           children:
             - dbc.Tab:
                 label: Workflow
-                tab_id: tab-1
+                tab_id: workflow_tab
             - dbc.Tab:
                 label: Models
-                tab_id: tab-2
+                tab_id: models_tab
             - dbc.Tab:
                 label: Datasets
-                tab_id: tab-3
+                tab_id: datasets_tab
             - dbc.Tab:
                 label: Editor
-                tab_id: tab-4
+                tab_id: editor_tab
           id: SideMenuBarTabs
-          active_tab: tab-1
+          active_tab: workflow_tab
     className: justify-content-center side-menubar
 
 menubar-details:
@@ -67,11 +72,150 @@ menubar-details:
           id: content
     className: justify-content-center menubar-details
 
+
+#graph:
+#  dbc.Row:
+#    children:
+#      - dbc.Col:
+#          children:
+#            - dbc.Button:
+#                children: PLOT
+#                id: plot-graph
+#                className: mr-1 plot-graph
+#                color: primary
+#                size: md
+#                n_clicks: 0
+#            - dbc.Button:
+#                children: REMOVE
+#                id: remove-graph
+#                className: mr-1 remove-graph
+#                color: primary
+#                size: md
+#                n_clicks: 0
+#            - html.Div:
+#                children:
+#                  - dcc.Graph:
+#                      id: my-graph-empty
+#                id: kamodo-graph
+#                className: kamodo-graph
+#            - html.Div:
+#                children:
+#                id: kamodo-graph-custom
+#                className: kamodo-graph-custom
+#
+#    className: graph-container
+
+
+graph:
+  html.Div:
+    children:
+      - dbc.Row:
+          className: justify-content-center
+          children:
+            - html.H2:
+                children: KAMODO GRAPH
+                className: kamodo-graph-title
+      - html.Hr:
+      - dbc.Row:
+          className: justify-content-center
+          children:
+            - html.Div:
+                children:
+                  - dcc.Graph:
+                      id: my-graph-empty
+                id: kamodo-graphs
+                className: kamodo-graphs
+      - html.Hr:
+      - dbc.Row:
+          className: justify-content-center
+          children:
+            - html.H2:
+                children: CUSTOM GRAPH
+                className: kamodo-graph-title
+      - html.Hr:
+      - dbc.Row:
+          className: justify-content-center
+          children:
+            - html.Div:
+                children:
+                id: kamodo-graph-custom
+                className: kamodo-graph-custom
+    className: container graph-container
+
+custom-function-graph:
+  html.Div:
+    children:
+      - dbc.Row:
+          children:
+            - html.Div:
+                children:
+                  - html.H2:
+                      children: Plot Custom Function
+                      className: custom-function-header
+                className: function-header-area
+          className: justify-content-center
+      - dbc.Row:
+          children:
+            - dbc.Col:
+                children:
+                  - dbc.Input:
+                      placeholder: y=x+3
+                      bs_size: lg
+                      id: custom-function-input
+                      className: mb-3 custom-function-input
+                width: 12
+          className: justify-content-center
+      - dbc.Row:
+          children:
+            - dbc.Col:
+                children:
+                  - dbc.Input:
+                      placeholder: 'Add Minimum value for your range...'
+                      bs_size: lg
+                      id: function-range-minimum
+                      className: mb-3 function-range-minimum
+                width: 6
+            - dbc.Col:
+                children:
+                  - dbc.Input:
+                      placeholder: 'Add Maximum value for your range...'
+                      bs_size: lg
+                      id: function-range-maximum
+                      className: mb-3 function-range-maximum
+                width: 6
+          className: justify-content-center
+    className: container custom-function-container
+
 graph-section:
   dbc.Col:
-    width: 8
-    children: GRAPH SECTION
+    children:
+      - ${graph}
+      - ${custom-function-graph}
     className: graph-section
+    id: graph-section
+    width: 6
+
+
+
+model-list:
+  html.Div:
+    children:
+      - dbc.Row:
+          className: justify-content-center selected-models
+          id: selected-models
+    className: container selected-model-names
+    id: selected-model-names
+
+model-types-section:
+  dbc.Col:
+    children:
+      - html.H2:
+          children: Model Type Section
+          className: model-type-section-header
+      - ${model-list}
+    className: model-types-section justify-content-center
+    id: model-types-section
+    width: 2
 
 content-section:
   dbc.Row:
@@ -79,27 +223,141 @@ content-section:
       - ${side-menubar}
       - ${menubar-details}
       - ${graph-section}
-    className: h-100
+      - ${model-types-section}
+    style:
+      height: 100vw
 
 layout:
-    html.Div:
-      children:
-        - html.Div:
-            children:
-              - ${header}
-              - ${content-section}
-            className: container-fluid h-100
-      className: kamodo-dashboard
+  html.Div:
+    children:
+      - dcc.Location:
+          id: url
+      - html.Div:
+          children:
+            - ${header}
+            - ${content-section}
+          className: container-fluid h-100
+    className: kamodo-dashboard
 
 
 
 callbacks:
-  compute:
+  sidemenubar_callback:
     output:
-    - id: content
-      attr: children
+      - id: content
+        attr: children
     input:
-    - id: SideMenuBarTabs
-      attr: active_tab
+      - id: SideMenuBarTabs
+        attr: active_tab
     callback: kamodo_callbacks.update_menubar_details
 
+
+  model_callback:
+    output:
+      - id: collapse-CTIPe
+        attr: is_open
+      - id: collapse-GITM
+        attr: is_open
+      - id: collapse-IRI
+        attr: is_open
+    input:
+      - id: CTIPe-toggle
+        attr: n_clicks
+      - id: GITM-toggle
+        attr: n_clicks
+      - id: IRI-toggle
+        attr: n_clicks
+    state:
+      - id: collapse-CTIPe
+        attr: is_open
+      - id: collapse-GITM
+        attr: is_open
+      - id: collapse-IRI
+        attr: is_open
+    callback: kamodo_callbacks.toggle_model_cards_accordion
+
+
+  model_names:
+    output:
+      - id: selected-models
+        attr: children
+    input:
+      - id: CTIPe-toggle
+        attr: n_clicks
+    callback: kamodo_callbacks.get_selected_model_names
+
+
+# ASHER's CODE START
+
+  graph_list:
+    output:
+      - id: kamodo-graphs
+        attr: children
+    input:
+      - id: selected-models
+        attr: children
+    callback: kamodo_callbacks.init_kamodo_graphs
+
+  plot_graph:
+    output:
+      - id:
+          type: kamodo-plot-area
+          id: MATCH
+        attr: style
+      - id:
+          type: kamodo-plot
+          id: MATCH
+        attr: children
+    input:
+      - id:
+          type: model-plot-button
+          id: MATCH
+        attr: n_clicks
+    state:
+      - id:
+          type: model-plot-button
+          id: MATCH
+        attr: id
+    callback: kamodo_callbacks.plot_kamodo_graph
+
+# AHSER's CODE END
+
+
+  custom_function:
+    output:
+      - id: kamodo-graph-custom
+        attr: children
+    input:
+      - id: custom-function-input
+        attr: value
+      - id: function-range-minimum
+        attr: value
+      - id: function-range-maximum
+        attr: value
+    callback: kamodo_callbacks.plot_custom_function
+
+  custom_2d_graph_update:
+    output:
+      - id: my-graph-custom-2d
+        attr: figure
+    input:
+      - id: my-range-slider-2d
+        attr: value
+    state:
+      - id: custom-function-input
+        attr: value
+    callback: kamodo_callbacks.update_custom_function_2d_graph
+
+  custom_3d_graph_update:
+    output:
+      - id: my-graph-custom-3d
+        attr: figure
+    input:
+      - id: my-range-slider-3d-x
+        attr: value
+      - id: my-range-slider-3d-y
+        attr: value
+    state:
+      - id: custom-function-input
+        attr: value
+    callback: kamodo_callbacks.update_custom_function_3d_graph

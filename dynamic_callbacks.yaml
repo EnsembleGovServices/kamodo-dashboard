@@ -1,0 +1,83 @@
+import:
+  dcc: dash_core_components
+  html: dash_html_components
+  dbc: dash_bootstrap_components
+
+external_stylesheets:
+  #  - https://codepen.io/chriddyp/pen/bWLwgP.css
+  - https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css
+  - assets/css/dashboard.css
+
+external_scripts:
+  - https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML
+  - assets/js/dashboard.js
+  - https://code.jquery.com/jquery-3.6.0.js
+  - https://code.jquery.com/ui/1.12.1/jquery-ui.js
+  - https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js
+  - https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js
+
+
+app:
+  dash.Dash:
+    external_stylesheets: ${external_stylesheets}
+    external_scripts: ${external_scripts}
+    title: kamodo-dashboard
+    suppress_callback_exceptions: True
+
+run_server:
+  host: '0.0.0.0'
+  port: 8060
+  extra_files:
+    - dynamic_callbacks.yaml
+  debug: True
+  dev_tools_hot_reload: False
+
+layout:
+  html.Div:
+    children:
+      - dcc.Location:
+          id: url
+      - html.Div:
+          id: selected-models
+      - html.Div:
+          id: kamodo-graphs
+    className: kamodo-dashboard
+
+callbacks:
+  model_names:
+    output:
+      - id: selected-models
+        attr: children
+    input:
+      - id: url
+        attr: pathname
+    callback: kamodo_callbacks.get_selected_model_names
+
+  graph_list:
+    output:
+      - id: kamodo-graphs
+        attr: children
+    input:
+      - id: selected-models
+        attr: children
+    callback: kamodo_callbacks.init_kamodo_graphs
+    
+  plot_graph:
+    output:
+      - id:
+          type: kamodo-plot
+          id: MATCH
+        attr: figure
+    input:
+      - id:
+          type: model-plot-button
+          id: MATCH
+        attr: n_clicks
+    state:
+      - id:
+          type: model-plot-button
+          id: MATCH
+        attr: id
+    callback: kamodo_callbacks.graph_function_testing
+
+

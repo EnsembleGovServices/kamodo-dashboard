@@ -1,0 +1,38 @@
+# version: "3"
+version: '2.4'
+networks: {}
+services:
+  kamodo-dev:
+    restart: unless-stopped
+    container_name: kamodo-dev
+    build: 
+      context: ./kamodo-core
+      dockerfile: Dockerfile
+    image: ensemblegov-kamodo-core
+    platform: linux/arm64/v8 # aarch64-linux-gnu
+    ports:
+    - "8888:8888"
+    volumes:
+      - type: bind
+        source: ${PWD}/kamodo-core
+        target: /Kamodo
+  kamodo-dashboard:
+    # restart: unless-stopped
+    container_name: kamodo-dashboard
+    depends_on:
+      - kamodo-dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: ensemblegov-kamodo-dashboard
+    platform: linux/arm64/v8 # aarch64-linux-gnu
+    ports:
+      - "8060:8060"
+    command:
+      - python
+      - run.py
+    volumes:
+      - type: bind
+        source: ${PWD}
+        target: /kamodo-dashboard
+        

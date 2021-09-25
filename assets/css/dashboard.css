@@ -1,8 +1,22 @@
 /* BODY STYLE START */
 body{
+    height: 100vw;
     padding: 0;
+    overflow-y: hidden
 }
+
 /* BODY STYLE END */
+
+/*Remove the scrollbar from Chrome, Safari, Edge and IE*/
+/*::-webkit-scrollbar {
+    width: 0px;
+    background: transparent;
+}
+
+* {
+  -ms-overflow-style: none !important;
+}*/
+
 
 /* LOGO STYLE START */
 .logo{
@@ -19,15 +33,301 @@ body{
 }
 /* HEADER STYLE END */
 
-/* SIDE MENU BAR STYLE START */
+/* SIDE NAV BAR STYLE START */
 .side-menubar{
     color: white;
     background-color: black
 }
-/* SIDE MENU BAR STYLE END */
+
+.nav-tabs{
+    margin-top: 20%;
+    border-bottom: none;
+}
+
+.nav-item{
+    text-align: center;
+    width: 100%;
+}
+
+.nav-link{
+    padding:5% 0;
+}
+
+.nav-tabs .nav-item {
+    margin: 40% 0;
+}
+
+.nav-tabs .nav-item .nav-link.active {
+    color: white;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 0
+}
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:hover {
+    border: none
+}
+
+.nav-tabs .nav-link:focus, .nav-tabs .nav-link:active {
+    border: none
+}
+
+a{
+    color:white
+}
+
+a:hover{
+    color: white
+}
+/* SIDE NAV BAR STYLE END */
+
+/* WORKFLOW CARDS STYLE START */
+
+.menubar-details{
+    height: 100vh;
+    overflow-y: auto;
+}
+
+
+.workflow-card{
+    width: 100%;
+    height: 180px;
+    margin-bottom: 5%;
+    border: none;
+    background: #C4C4C4;
+
+}
+
+.workflow-card-img{
+    margin: 30% 0 0 30%;
+    width: 100px;
+    height: 70px;
+}
+
+.workflow-title {
+    margin: 5% 0;
+}
+
+.workflow-header{
+    padding-top: 20%;
+}
+
+/* WORKFLOW CARDS STYLE END */
+
+
+/* MODELS CARDS STYLE START */
+
+.btn-secondary{
+    all: unset;
+    width: 100%;
+    padding: 0;
+    margin-bottom: 5%;
+}
+
+.btn-secondary:hover{
+    color: black;
+    background-color: rgb(0,0,0,0);
+    border: 0;
+    outline: none;
+}
+
+.btn-secondary:active{
+    color: black;
+    background-color: rgb(0,0,0,0);
+    border: 0;
+    outline: none;
+}
+
+.btn-secondary:focus {
+    color: black;
+    background-color: rgb(0,0,0,0);
+    border: 0;
+    outline: none;
+}
+
+
+.btn-secondary.dropdown-toggle {
+    color: black;
+    background-color: rgb(0,0,0,0);
+    border: 0;
+    outline: none;
+}
+
+.btn-secondary:not(:disabled):not(.disabled).active,
+.btn-secondary:not(:disabled):not(.disabled):active,
+.show>.btn-secondary.dropdown-toggle {
+     color: black;
+     background-color: rgb(0,0,0,0);
+     border: 0;
+}
+
+.model-card{
+    width: 100%;
+    height: fit-content;
+    min-height: 180px;
+    border: none;
+    background: #C4C4C4;
+}
+
+.model-title{
+    margin: 5% 0;
+}
+
+.model-header{
+    margin: 30% 0 0 30%;
+}
+
+.model-types{
+    margin: auto 0;
+}
+
+.model-type-name {
+    margin: 3% 0;
+    padding: 0;
+    color: white;
+    text-align: center;
+    background-color: black;
+    border: 1px solid black;
+    border-top-left-radius: .25rem;
+    border-top-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+    border-bottom-right-radius: .25rem;
+}
+
+.gitm-list-group{
+    margin-top: 20%;
+}
+
+.iri-list-group{
+    margin-top: 25%;
+}
+
+/* MODELS CARDS STYLE END*/
+
+/* ACCORDION STYLE START*/
+.accordion{
+    width: 100%
+}
+
+#collapse-CTIPe, #collapse-GITM, #collapse-IRI{
+    background: #C4C4C4;
+    margin-bottom: 5%
+}
+/* ACCORDION STYLE END */
+
+/* CTIPe MODEL STYLE START*/
+.ctipe-details{
+    padding: 5% 7%;
+}
+/* CTIPe MODEL STYLE START*/
+
+/* MENU BAR DETAILS SLIDER STYLE START  */
+
+.menubar-details-slider{
+    width: 0;
+    transition-duration: 0.5s;
+}
+
+.menubar-details-slider-show{
+    width:100%;
+
+}
+
+/* MENU BAR DETAILS SLIDER STYLE END */
+
 
 /* GRAPH SECTION STYLE START */
-.graph-section{
-    background-color: #CAC9C9
+.graph-container{
+    background-color: #CAC9C9;
+    height: 600px;
+    overflow-y: scroll
 }
 /* GRAPH SECTION STYLE END */
+
+/* GRAPH STYLE START */
+.kamodo-graph-title{
+    margin-top: 2%;
+}
+
+.kamodo-graph{
+    padding:5%
+}
+
+.kamodo-graph-custom{
+    padding:0
+}
+
+#my-graph-empty{
+    height: 400px;
+    width: 700px;
+}
+
+#my-graph{
+    width: 100%
+}
+
+.main-svg{
+    width: 100%
+}
+
+/*#scene{
+    top: 50px,
+    width: 500px ! important,
+    height: 300px ! important
+}*/
+/* GRAPH STYLE END */
+
+/* MODEL TYPE LIST STYLE START */
+
+.model-types-section{
+    height: 100vh;
+    overflow-y: scroll;
+}
+
+.model-type-section-header{
+    text-align: center;
+    margin: 10% 0;
+}
+
+.model-type-list {
+    width: 100%;
+    text-align: center;
+}
+
+.model-type-button{
+    padding: 5%
+}
+
+/* MDOEL TYPE LIST STYLE END */
+
+/* CUSTOM FUNCTION STYLE START */
+.custom-function-container{
+       display: block;
+}
+
+.function-header-area{
+    margin: 2% 0;
+}
+
+/* CUSTOM FUNCTION STYLE START */
+
+/* RANGE CSS START */
+
+.my-range-slider-area{
+    min-height: 50px;
+    background: white
+/*    padding: 5% 0 0 0; */
+}
+
+.my-range-slider-2d{
+    padding: 5% 0 0 0;
+}
+
+.range-min-value{
+    padding-left: 5%
+}
+
+.range-max-value{
+    padding-right: 5%
+}
+/* RANGE CSS END */
